@@ -45,20 +45,10 @@ class BookItem extends StatelessWidget {
               Radius.circular(10.0),
             ),
             child: Hero(
-              tag: imgTag,
-              child: CachedNetworkImage(
-                imageUrl: '$img',
-                placeholder: (context, url) => LoadingWidget(
-                  isImage: true,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/place.png',
-                  fit: BoxFit.cover,
-                ),
-                fit: BoxFit.cover,
-                height: 150.0,
-              ),
-            ),
+                tag: imgTag,
+                child: Container(
+                  child: Image.network('$img'),
+                )),
           ),
           SizedBox(height: 5.0),
           Hero(

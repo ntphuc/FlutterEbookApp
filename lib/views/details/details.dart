@@ -114,19 +114,19 @@ class _DetailsState extends State<Details> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Hero(
-            tag: widget.imgTag,
-            child: CachedNetworkImage(
-              imageUrl: '${widget.entry.link[1].href}',
-              placeholder: (context, url) => Container(
+              tag: widget.imgTag,
+              child: Container(
                 height: 200.0,
                 width: 130.0,
-                child: LoadingWidget(),
-              ),
-              errorWidget: (context, url, error) => Icon(Feather.x),
-              fit: BoxFit.cover,
-              height: 200.0,
-              width: 130.0,
-            ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: ('${widget.entry.link[1].href}' == null)
+                          ? AssetImage('assets/images/place.png')
+                          : NetworkImage('${widget.entry.link[1].href}'),
+                      fit: BoxFit.cover),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              )
           ),
           SizedBox(width: 20.0),
           Flexible(

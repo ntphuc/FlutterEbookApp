@@ -70,12 +70,10 @@ class _DownloadsState extends State<Downloads> {
                 enableTts: false,
                 allowSharing: true,
               );
-              EpubViewer.open(
-                  path,
+              EpubViewer.open(path,
                   lastLocation: locators.isNotEmpty
                       ? EpubLocator.fromJson(locators[0])
-                      : null
-              );
+                      : null);
               EpubViewer.locatorStream.listen((event) async {
                 // Get locator here
                 Map json = jsonDecode(event);
@@ -88,22 +86,8 @@ class _DownloadsState extends State<Downloads> {
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
               child: Row(
                 children: <Widget>[
-                  CachedNetworkImage(
-                    imageUrl: dl['image'],
-                    placeholder: (context, url) => Container(
-                      height: 70.0,
-                      width: 70.0,
-                      child: LoadingWidget(),
-                    ),
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/place.png',
-                      fit: BoxFit.cover,
-                      height: 70.0,
-                      width: 70.0,
-                    ),
-                    fit: BoxFit.cover,
-                    height: 70.0,
-                    width: 70.0,
+                  Container(
+                    child: Image.network(dl['image']),
                   ),
                   SizedBox(width: 10.0),
                   Flexible(

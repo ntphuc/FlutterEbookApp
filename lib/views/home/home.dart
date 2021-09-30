@@ -185,6 +185,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       itemCount: homeProvider?.recent?.feed?.entry?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         Entry entry = homeProvider.recent.feed.entry[index];
+        print("images need:" + homeProvider.recent.feed.entry[index].link[1].href);
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
