@@ -60,27 +60,19 @@ class BookListItem extends StatelessWidget {
                   Radius.circular(10.0),
                 ),
                 child: Hero(
-                  tag: imgTag,
-                  child: CachedNetworkImage(
-                    imageUrl: '$img',
-                    placeholder: (context, url) => Container(
+                    tag: imgTag,
+                    child: Container(
                       height: 150.0,
                       width: 100.0,
-                      child: LoadingWidget(
-                        isImage: true,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: ('$img' == null)
+                                ? AssetImage('assets/images/place.png')
+                                : NetworkImage('$img'),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/place.png',
-                      fit: BoxFit.cover,
-                      height: 150.0,
-                      width: 100.0,
-                    ),
-                    fit: BoxFit.cover,
-                    height: 150.0,
-                    width: 100.0,
-                  ),
-                ),
+                    )),
               ),
             ),
             SizedBox(width: 10.0),

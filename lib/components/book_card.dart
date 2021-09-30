@@ -53,19 +53,10 @@ class BookCard extends StatelessWidget {
               Radius.circular(10.0),
             ),
             child: Hero(
-              tag: imgTag,
-              child: CachedNetworkImage(
-                imageUrl: '$img',
-                placeholder: (context, url) => LoadingWidget(
-                  isImage: true,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/place.png',
-                  fit: BoxFit.cover,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
+                tag: imgTag,
+                child: Container(
+                  child: Image.network('$img'),
+                )),
           ),
         ),
       ),
