@@ -10,7 +10,9 @@ import 'package:flutter_ebook_app/components/description_text.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/database/locator_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
+import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/details_provider.dart';
+import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -257,7 +259,7 @@ class _DetailsState extends State<Details> {
   _buildDownloadReadButton(DetailsProvider provider, BuildContext context) {
     if (provider.downloaded) {
       return FlatButton(
-        onPressed: () => openBook(provider),
+        onPressed: () => openBookPDF(), //openBook(provider),
         child: Text(
           'Read Book',
         ),
@@ -274,6 +276,13 @@ class _DetailsState extends State<Details> {
         ),
       );
     }
+  }
+
+  openBookPDF() {
+    MyRouter.pushPage(
+      context,
+      PdfViewer(entry: widget.entry),
+    );
   }
 
   _buildCategory(Entry entry, BuildContext context) {
