@@ -128,8 +128,7 @@ class _DetailsState extends State<Details> {
                       fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-              )
-          ),
+              )),
           SizedBox(width: 20.0),
           Flexible(
             child: Column(
@@ -224,17 +223,20 @@ class _DetailsState extends State<Details> {
   }
 
   openBook(DetailsProvider provider) async {
-    List dlList = await provider.getDownload();
-    if (dlList.isNotEmpty) {
+    List listBook = await provider.getDownload();
+    print("list book: " + listBook.length.toString());
+    if (listBook.isNotEmpty) {
       // dlList is a list of the downloads relating to this Book's id.
       // The list will only contain one item since we can only
       // download a book once. Then we use `dlList[0]` to choose the
       // first value from the string as out local book path
-      Map dl = dlList[0];
+      Map dl = listBook[0];
       String path = dl['path'];
+      print("list book path: " + path.toString());
 
       List locators =
           await LocatorDB().getLocator(widget.entry.id.t.toString());
+      print("list book locators: " + locators.toString());
 
       EpubViewer.setConfig(
         identifier: 'androidBook',
@@ -243,6 +245,7 @@ class _DetailsState extends State<Details> {
         enableTts: false,
         allowSharing: true,
       );
+
       EpubViewer.open(path,
           lastLocation:
               locators.isNotEmpty ? EpubLocator.fromJson(locators[0]) : null);
