@@ -262,7 +262,7 @@ class _DetailsState extends State<Details> {
   _buildDownloadReadButton(DetailsProvider provider, BuildContext context) {
     if (provider.downloaded) {
       return FlatButton(
-        onPressed: () => openBookPDF(), //openBook(provider),
+        onPressed: () => openBook(provider),
         child: Text(
           'Read Book',
         ),
