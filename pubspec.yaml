@@ -35,7 +35,7 @@ dependencies:
   permission_handler: ^4.2.0+hotfix.1
   google_fonts: ^1.1.0
   flutter_spinkit: ^4.1.2+1
-  advance_pdf_viewer: ^1.2.2
+  advance_pdf_viewer: any
 
 dev_dependencies:
   flutter_test:

@@ -31,15 +31,14 @@ class _PdfViewerState extends State<PdfViewer> {
   Widget build(BuildContext context) {
     debugPrint("build = " + _isLoading.toString());
 
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text("PdfViewer Demo"),
-          ),
-          body: Center(
-              child: _isLoading
-                  ? CircularProgressIndicator()
-                  : PDFViewer(document: document, zoomSteps: 1))),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('PdfViewer'),
+      ),
+      body: Center(
+          child: _isLoading
+              ? CircularProgressIndicator()
+              : PDFViewer(document: document, zoomSteps: 1)),
     );
   }
 
