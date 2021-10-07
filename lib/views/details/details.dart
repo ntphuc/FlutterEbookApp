@@ -276,7 +276,7 @@ class _DetailsState extends State<Details> {
           children: [
             Icon(Icons.read_more),
             SizedBox(width: 5,),
-            Text('Read Book')
+            Text('Read Epub')
           ],
         ),
       );
@@ -292,7 +292,7 @@ class _DetailsState extends State<Details> {
           children: [
             Icon(Icons.download_rounded),
             SizedBox(width: 5,),
-            Text('Download')
+            Text('Download Epub')
           ],
         ),
       );
