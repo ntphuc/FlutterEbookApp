@@ -170,9 +170,17 @@ class _DetailsState extends State<Details> {
                 _buildCategory(widget.entry, context),
                 Center(
                   child: Container(
-                    height: 20.0,
+                    height: 30.0,
                     width: MediaQuery.of(context).size.width,
                     child: _buildDownloadReadButton(detailsProvider, context),
+                  ),
+                ),
+                SizedBox(height: 12.0,),
+                Center(
+                  child: Container(
+                    height: 30.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: _buildReadPDF(context),
                   ),
                 ),
               ],
@@ -261,24 +269,50 @@ class _DetailsState extends State<Details> {
 
   _buildDownloadReadButton(DetailsProvider provider, BuildContext context) {
     if (provider.downloaded) {
-      return FlatButton(
+      return ElevatedButton (
         onPressed: () => openBook(provider),
-        child: Text(
-          'Read Book',
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.read_more),
+            SizedBox(width: 5,),
+            Text('Read Epub')
+          ],
         ),
       );
     } else {
-      return FlatButton(
+      return ElevatedButton(
         onPressed: () => provider.downloadFile(
           context,
           widget.entry.link[3].href,
           widget.entry.title.t.replaceAll(' ', '_').replaceAll(r"\'", "'"),
         ),
-        child: Text(
-          'Download',
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.download_rounded),
+            SizedBox(width: 5,),
+            Text('Download Epub')
+          ],
         ),
       );
     }
+  }
+
+  _buildReadPDF(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          openBookPDF();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.picture_as_pdf),
+            SizedBox(width: 8,),
+            Text('Read PDF')
+          ],
+        )
+    );
   }
 
   openBookPDF() {
@@ -293,7 +327,7 @@ class _DetailsState extends State<Details> {
       return SizedBox();
     } else {
       return Container(
-        height: entry.category.length < 3 ? 55.0 : 95.0,
+        height: entry.category.length < 3 ? 55.0 : 75.0,
         child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
