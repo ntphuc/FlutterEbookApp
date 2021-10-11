@@ -183,6 +183,14 @@ class _DetailsState extends State<Details> {
                   child: Container(
                     height: 30.0,
                     width: MediaQuery.of(context).size.width,
+                    child: _buildDownloadPDF(context),
+                  ),
+                ),
+                SizedBox(height: 12.0,),
+                Center(
+                  child: Container(
+                    height: 30.0,
+                    width: MediaQuery.of(context).size.width,
                     child: _buildReadPDF(context),
                   ),
                 ),
@@ -306,6 +314,22 @@ class _DetailsState extends State<Details> {
   }
 
   _buildReadPDF(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () async{
+          openBookPDF();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.picture_as_pdf),
+            SizedBox(width: 8,),
+            Text('Read PDF')
+          ],
+        )
+    );
+  }
+
+  _buildDownloadPDF(BuildContext context) {
     Api api = Api();
 
     return ElevatedButton(
