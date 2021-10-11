@@ -119,7 +119,7 @@ class DetailsProvider extends ChangeNotifier {
         ? appDocDir.path + '/$filename.epub'
         : appDocDir.path.split('Android')[0] +
             '${Constants.appName}/$filename.epub';
-    print(path);
+    print('Link url path file book: ----- ' + path);
     File file = File(path);
     if (!await file.exists()) {
       await file.create();

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:epub_viewer/epub_viewer.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_ebook_app/components/book_list_item.dart';
@@ -10,10 +10,12 @@ import 'package:flutter_ebook_app/components/description_text.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/database/locator_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
+import 'package:flutter_ebook_app/util/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/details_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class Details extends StatefulWidget {
@@ -38,6 +40,7 @@ class _DetailsState extends State<Details> {
   @override
   void initState() {
     super.initState();
+    getPermission();
     SchedulerBinding.instance.addPostFrameCallback(
       (_) {
         Provider.of<DetailsProvider>(context, listen: false)
@@ -268,6 +271,9 @@ class _DetailsState extends State<Details> {
   }
 
   _buildDownloadReadButton(DetailsProvider provider, BuildContext context) {
+    print('Check link: ' + widget.entry.link[3].href);
+    print('Check link: ' + widget.entry.title.t);
+
     if (provider.downloaded) {
       return ElevatedButton (
         onPressed: () => openBook(provider),
@@ -300,16 +306,23 @@ class _DetailsState extends State<Details> {
   }
 
   _buildReadPDF(BuildContext context) {
+    Api api = Api();
+
     return ElevatedButton(
-        onPressed: () {
-          openBookPDF();
+        onPressed: () async{
+          //openBookPDF();
+          String path =
+          await ExtStorage.getExternalStoragePublicDirectory(
+              ExtStorage.DIRECTORY_DOWNLOADS);
+          String fullPath = '$path/new_task.pdf';
+          api.downloadBook(api.dio, Api.urlBook, fullPath);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.picture_as_pdf),
             SizedBox(width: 8,),
-            Text('Read PDF')
+            Text('Download PDF')
           ],
         )
     );
@@ -369,6 +382,10 @@ class _DetailsState extends State<Details> {
         ),
       );
     }
+  }
+
+  void getPermission() async {
+    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
   }
 
   _share() {
