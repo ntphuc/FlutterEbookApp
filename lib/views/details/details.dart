@@ -178,20 +178,14 @@ class _DetailsState extends State<Details> {
                     child: _buildDownloadReadButton(detailsProvider, context),
                   ),
                 ),
-                SizedBox(height: 12.0,),
+                SizedBox(
+                  height: 12.0,
+                ),
                 Center(
                   child: Container(
                     height: 30.0,
                     width: MediaQuery.of(context).size.width,
                     child: _buildDownloadPDF(context),
-                  ),
-                ),
-                SizedBox(height: 12.0,),
-                Center(
-                  child: Container(
-                    height: 30.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: _buildReadPDF(context),
                   ),
                 ),
               ],
@@ -283,13 +277,15 @@ class _DetailsState extends State<Details> {
     print('Check link: ' + widget.entry.title.t);
 
     if (provider.downloaded) {
-      return ElevatedButton (
+      return ElevatedButton(
         onPressed: () => openBook(provider),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.read_more),
-            SizedBox(width: 5,),
+            SizedBox(
+              width: 5,
+            ),
             Text('Read Epub')
           ],
         ),
@@ -305,7 +301,9 @@ class _DetailsState extends State<Details> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.download_rounded),
-            SizedBox(width: 5,),
+            SizedBox(
+              width: 5,
+            ),
             Text('Download Epub')
           ],
         ),
@@ -313,43 +311,43 @@ class _DetailsState extends State<Details> {
     }
   }
 
-  _buildReadPDF(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () async{
-          openBookPDF();
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.picture_as_pdf),
-            SizedBox(width: 8,),
-            Text('Read PDF')
-          ],
-        )
-    );
-  }
-
   _buildDownloadPDF(BuildContext context) {
     Api api = Api();
 
-    return ElevatedButton(
-        onPressed: () async{
-          //openBookPDF();
-          String path =
-          await ExtStorage.getExternalStoragePublicDirectory(
-              ExtStorage.DIRECTORY_DOWNLOADS);
-          String fullPath = '$path/new_task.pdf';
-          api.downloadBook(api.dio, Api.urlBook, fullPath);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.picture_as_pdf),
-            SizedBox(width: 8,),
-            Text('Download PDF')
-          ],
-        )
-    );
+    if (!Api.downloaded) {
+      return ElevatedButton(
+          onPressed: () async {
+            String path = await ExtStorage.getExternalStoragePublicDirectory(
+                ExtStorage.DIRECTORY_DOWNLOADS);
+            String fullPath = '$path/new_task.pdf';
+            api.downloadBook(api.dio, Api.urlBook, fullPath);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.picture_as_pdf),
+              SizedBox(
+                width: 8,
+              ),
+              Text('Download PDF')
+            ],
+          ));
+    } else {
+      return ElevatedButton(
+          onPressed: () async {
+            openBookPDF();
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.picture_as_pdf),
+              SizedBox(
+                width: 8,
+              ),
+              Text('Read PDF')
+            ],
+          ));
+    }
   }
 
   openBookPDF() {

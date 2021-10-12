@@ -23,6 +23,7 @@ class Api {
   static String horror = '$publicDomainURL/top.atom?cat=FBFIC015000';
 
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";
+  static bool downloaded = false;
 
   Future<CategoryFeed> getCategory(String url) async {
     var res = await dio.get(url).catchError((e) {
@@ -65,6 +66,7 @@ class Api {
   void showDownloadProgress(received, total) {
     if (total != 1) {
       String showPercent = (received / total * 100).toStringAsFixed(0) + "%";
+      downloaded = true;
       print(showPercent);
       Fluttertoast.showToast(
           msg: 'Download' + showPercent,
