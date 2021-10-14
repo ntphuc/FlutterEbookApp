@@ -61,15 +61,15 @@ class _DetailsState extends State<Details> {
             actions: <Widget>[
               IconButton(
                 onPressed: () async {
-                  if (detailsProvider.faved) {
+                  if (detailsProvider.checkFavorite) {
                     detailsProvider.removeFav();
                   } else {
                     detailsProvider.addFav();
                   }
                 },
                 icon: Icon(
-                  detailsProvider.faved ? Icons.favorite : Feather.heart,
-                  color: detailsProvider.faved
+                  detailsProvider.checkFavorite ? Icons.favorite : Feather.heart,
+                  color: detailsProvider.checkFavorite
                       ? Colors.red
                       : Theme.of(context).iconTheme.color,
                 ),
@@ -217,9 +217,9 @@ class _DetailsState extends State<Details> {
       return ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: provider.related.feed.entry.length,
+        itemCount: provider.categoryFeed.feed.entry.length,
         itemBuilder: (BuildContext context, int index) {
-          Entry entry = provider.related.feed.entry[index];
+          Entry entry = provider.categoryFeed.feed.entry[index];
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 5.0),
             child: BookListItem(

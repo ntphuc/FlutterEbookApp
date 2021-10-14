@@ -19,6 +19,7 @@ class HomeProvider with ChangeNotifier {
       debugPrint('debugCategoryPopular = $popular');
       CategoryFeed newReleases = await api.getCategory(Api.recent);
       setRecent(newReleases);
+      debugPrint('debug newReleases = $newReleases');
       setApiRequestStatus(APIRequestStatus.loaded);
     } catch (e) {
       checkError(e);

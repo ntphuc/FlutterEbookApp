@@ -14,13 +14,13 @@ import 'package:permission_handler/permission_handler.dart';
 import '../models/category.dart';
 
 class DetailsProvider extends ChangeNotifier {
-  CategoryFeed related = CategoryFeed();
+  CategoryFeed categoryFeed = CategoryFeed();
   bool loading = true;
   Entry entry;
   var favDB = FavoriteDB();
   var dlDB = DownloadsDB();
 
-  bool faved = false;
+  bool checkFavorite = false;
   bool downloaded = false;
   Api api = Api();
 
@@ -158,12 +158,12 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   void setRelated(value) {
-    related = value;
+    categoryFeed = value;
     notifyListeners();
   }
 
   CategoryFeed getRelated() {
-    return related;
+    return categoryFeed;
   }
 
   void setEntry(value) {
@@ -172,7 +172,7 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   void setFaved(value) {
-    faved = value;
+    checkFavorite = value;
     notifyListeners();
   }
 

@@ -40,25 +40,19 @@ class _MainScreenState extends State<MainScreen> {
               icon: Icon(
                 Feather.home,
               ),
-              title: Text(
-                'Home',
-              ),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.compass,
               ),
-              title: Text(
-                'Explore',
-              ),
+              label: 'Explore',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.settings,
               ),
-              title: Text(
-                'Settings',
-              ),
+              label: 'Settings',
             ),
           ],
           onTap: navigationTapped,
