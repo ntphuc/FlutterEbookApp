@@ -39,6 +39,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: any
   flutter_downloader: ^1.4.4
   ext_storage: any
+  http: any
 
 dev_dependencies:
   flutter_test:

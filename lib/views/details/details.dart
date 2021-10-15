@@ -10,7 +10,7 @@ import 'package:flutter_ebook_app/components/description_text.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/database/locator_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
-import 'package:flutter_ebook_app/util/api.dart';
+import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/details_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';

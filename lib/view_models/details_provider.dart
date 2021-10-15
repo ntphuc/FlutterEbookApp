@@ -6,7 +6,7 @@ import 'package:flutter_ebook_app/components/download_alert.dart';
 import 'package:flutter_ebook_app/database/download_helper.dart';
 import 'package:flutter_ebook_app/database/favorite_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
-import 'package:flutter_ebook_app/util/api.dart';
+import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';

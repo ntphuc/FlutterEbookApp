@@ -22,6 +22,9 @@ class Api {
   static String romance = '$publicDomainURL/top.atom?cat=FBFIC027000';
   static String horror = '$publicDomainURL/top.atom?cat=FBFIC015000';
 
+  static String bookCat = 'http://chuagiacngo.com/api/v1.2/book-cat';
+  static String bookNew = 'http://chuagiacngo.com/api/v1.2/tnt-book';
+
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";
   static bool downloaded = false;
 
