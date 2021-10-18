@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ebook_app/components/book_new_item.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
+import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
 import 'package:flutter_ebook_app/view_models/book_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'book_cat_detail.dart';
 
 class BookScreen extends StatelessWidget {
   @override
@@ -70,6 +74,10 @@ class BookScreen extends StatelessWidget {
                             Radius.circular(20.0),
                           ),
                           onTap: () {
+                            MyRouter.pushPage(
+                              context,
+                              BookCatDetail(book: book),
+                            );
                             print('${book.resource_uri}');
                           },
                           child: Center(
@@ -116,7 +124,6 @@ class BookScreen extends StatelessWidget {
 
   _buildFeaturedListBookNew() {
     return Container(
-      height: 50.0,
       child: Center(
         child: ChangeNotifierProvider(
           create: (context) => BookNewProvider(),
@@ -132,43 +139,16 @@ class BookScreen extends StatelessWidget {
                   child: Text('An Error Occurred ${bookNew.message}'));
             }
             final abc = bookNew.bookNew;
-            return Container(
-              height: 50.0,
-              child: Center(
-                child: ListView.builder(
-                  primary: false,
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: abc.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final book = abc[index];
-                    return Container(
-                      width: 120.0,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        elevation: 4.0,
-                        child: InkWell(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          onTap: () {},
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                            child: Text('${book.name ?? "Empty"}'),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            return ListView.builder(
+              primary: false,
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              scrollDirection: Axis.vertical,
+              itemCount: abc.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final book = abc[index];
+                return customListTitle(book, context);
+              },
             );
           }),
         ),

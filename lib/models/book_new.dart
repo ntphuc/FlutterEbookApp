@@ -3,19 +3,19 @@ class BookNew {
   String name;
   String resource_uri;
   String type;
-  String created;
-  String sticky;
-  String changed;
+  int created;
+  int sticky;
+  int changed;
   String cover;
   String author;
-  String year;
-  Category category;
-  Publisher publisher;
+  int year;
+  //Category category;
+  //Publisher publisher;
   String isbn;
   String content;
   String q_album;
   String pdf;
-  String pdfSize;
+  int pdfSize;
 
   BookNew(
       {this.id,
@@ -28,8 +28,8 @@ class BookNew {
       this.cover,
       this.author,
       this.year,
-      this.category,
-      this.publisher,
+      //this.category,
+      //this.publisher,
       this.isbn,
       this.content,
       this.q_album,
@@ -47,11 +47,11 @@ class BookNew {
     cover = json['cover'];
     author = json['author'];
     year = json['year'];
-    category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
-    publisher = json['publisher'] != null
-        ? Publisher.fromJson(json['publisher'])
-        : null;
+    // category =
+    //     json['category'] != null ? Category.fromJson(json['category']) : null;
+    // publisher = json['publisher'] != null
+    //     ? Publisher.fromJson(json['publisher'])
+    //     : null;
     isbn = json['isbn'];
     content = json['content'];
     q_album = json['q_album'];
@@ -71,12 +71,12 @@ class BookNew {
     data['cover'] = this.cover;
     data['author'] = this.author;
     data['year'] = this.year;
-    if (this.category != null) {
-      data['category'] = this.category.toJson();
-    }
-    if (this.publisher != null) {
-      data['publisher'] = this.publisher.toJson();
-    }
+    // if (this.category != null) {
+    //   data['category'] = this.category.toJson();
+    // }
+    // if (this.publisher != null) {
+    //   data['publisher'] = this.publisher.toJson();
+    // }
     data['isbn'] = this.isbn;
     data['content'] = this.content;
     data['q_album'] = this.q_album;

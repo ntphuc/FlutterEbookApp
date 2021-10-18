@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_ebook_app/models/book_new.dart';
-import 'package:flutter_ebook_app/models/books.dart';
 import 'package:flutter_ebook_app/services/api.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,6 +23,8 @@ class BookNewApi {
       Map<String, dynamic> json = jsonDecode(response.body);
 
       List<dynamic> body = json['objects'];
+      print('need obj data:----' + body.length.toString());
+      print(body.runtimeType);
 
       // this line will allow us to get the different book from the json file
       // and putting them into a list
