@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
 import 'package:flutter_ebook_app/util/router.dart';
-import 'package:flutter_ebook_app/views/book/book_detail_screen.dart';
+import 'package:flutter_ebook_app/views/details/book_detail_screen.dart';
 import 'package:uuid/uuid.dart';
 
 Widget customListTitle(BookNew bookNew, BuildContext context) {

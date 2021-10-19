@@ -6,7 +6,7 @@ import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
 import 'package:flutter_ebook_app/view_models/book_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'book_cat_detail.dart';
+import '../details/book_cat_detail.dart';
 
 class BookScreen extends StatelessWidget {
   @override

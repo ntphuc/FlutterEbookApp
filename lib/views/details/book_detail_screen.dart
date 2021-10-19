@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
+import 'package:flutter_ebook_app/util/router.dart';
+import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:uuid/uuid.dart';
 
-class BookDetail extends StatelessWidget {
+class BookDetail extends StatefulWidget {
   final BookNew bookNew;
 
   BookDetail({this.bookNew});
 
   @override
+  State<BookDetail> createState() => _BookDetailState();
+}
+
+class _BookDetailState extends State<BookDetail> {
+  @override
   Widget build(BuildContext context) {
+    final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+
     final uuid = Uuid();
     final String imgTag = uuid.v4();
     final String titleTag = uuid.v4();
     final String authorTag = uuid.v4();
 
+    @override
+    void initState() {
+      super.initState();
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(bookNew.name),
+        title: Text(widget.bookNew.name),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 150.0,
+          height: 180.0,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +59,7 @@ class BookDetail extends StatelessWidget {
                         width: 100.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage(bookNew.cover),
+                              image: NetworkImage(widget.bookNew.cover),
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -63,7 +78,7 @@ class BookDetail extends StatelessWidget {
                       child: Material(
                         type: MaterialType.transparency,
                         child: Text(
-                          '${bookNew.name.replaceAll(r'\', '')}',
+                          '${widget.bookNew.name.replaceAll(r'\', '')}',
                           style: TextStyle(
                             fontSize: 17.0,
                             fontWeight: FontWeight.bold,
@@ -82,7 +97,7 @@ class BookDetail extends StatelessWidget {
                       child: Material(
                         type: MaterialType.transparency,
                         child: Text(
-                          bookNew.author,
+                          widget.bookNew.author,
                           style: TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w800,
@@ -92,16 +107,26 @@ class BookDetail extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.0),
-                    Text(
-                      '${bookNew.type.length < 100 ? bookNew.type : bookNew.type.substring(0, 100)}...'
-                          .replaceAll(r'\n', '\n')
-                          .replaceAll(r'\r', '')
-                          .replaceAll(r'\"', '"'),
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        color: Theme.of(context).textTheme.caption.color,
+                    ElevatedButton(
+                      onPressed: () {
+                        MyRouter.pushPage(
+                          context,
+                          ViewPDFBook(
+                              pdf: widget.bookNew.pdf,
+                              name: widget.bookNew.name),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.my_library_books),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Read Book')
+                        ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
