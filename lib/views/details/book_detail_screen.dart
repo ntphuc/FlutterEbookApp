@@ -1,7 +1,11 @@
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
+import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
+import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:uuid/uuid.dart';
 
@@ -18,6 +22,7 @@ class _BookDetailState extends State<BookDetail> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+    Api api = new Api();
 
     final uuid = Uuid();
     final String imgTag = uuid.v4();
@@ -27,6 +32,7 @@ class _BookDetailState extends State<BookDetail> {
     @override
     void initState() {
       super.initState();
+      getPermission();
     }
 
     return Scaffold(
@@ -107,25 +113,45 @@ class _BookDetailState extends State<BookDetail> {
                       ),
                     ),
                     SizedBox(height: 10.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        MyRouter.pushPage(
-                          context,
-                          ViewPDFBook(
-                              pdf: widget.bookNew.pdf,
-                              name: widget.bookNew.name),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.my_library_books),
-                          SizedBox(
-                            width: 5,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // button read book file pdf
+                        ElevatedButton(
+                          onPressed: () {
+                            MyRouter.pushPage(
+                              context,
+                              ViewPDFBook(
+                                  pdf: widget.bookNew.pdf,
+                                  name: widget.bookNew.name),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [Text('Read Book')],
                           ),
-                          Text('Read Book')
-                        ],
-                      ),
+                        ),
+                        // button download book offline and read book offline
+                        //_buildDownloadPDF(context, widget.bookNew),
+                        ElevatedButton(
+                          onPressed: () async {
+                            String path = await ExtStorage
+                                .getExternalStoragePublicDirectory(
+                                    ExtStorage.DIRECTORY_DOWNLOADS);
+                            String fullPath =
+                                '$path/${widget.bookNew.name}.pdf';
+                            api.downloadBook(
+                                api.dio, widget.bookNew.pdf, fullPath);
+                            print('Link save book:--- ' + fullPath);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [Text('Download')],
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
@@ -136,4 +162,37 @@ class _BookDetailState extends State<BookDetail> {
       ),
     );
   }
+}
+
+_buildDownloadPDF(BuildContext context, BookNew bookNew) {
+  Api api = new Api();
+
+  if (!Api.downloaded) {
+    ElevatedButton(
+      onPressed: () async {
+        String path = await ExtStorage.getExternalStoragePublicDirectory(
+            ExtStorage.DIRECTORY_DOWNLOADS);
+        String fullPath = '$path/${bookNew.name}.pdf';
+        api.downloadBook(api.dio, bookNew.pdf, fullPath);
+        print('Link save book:--- ' + fullPath);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('Download')],
+      ),
+    );
+  } else {
+    return ElevatedButton(
+        onPressed: () async {
+          print('aff');
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text('Read PDF')],
+        ));
+  }
+}
+
+void getPermission() async {
+  await PermissionHandler().requestPermissions([PermissionGroup.storage]);
 }

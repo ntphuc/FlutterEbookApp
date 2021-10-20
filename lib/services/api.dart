@@ -72,7 +72,7 @@ class Api {
       downloaded = true;
       print(showPercent);
       Fluttertoast.showToast(
-          msg: 'Download' + showPercent,
+          msg: 'Download: ' + showPercent,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
