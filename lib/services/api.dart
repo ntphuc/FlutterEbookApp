@@ -24,7 +24,7 @@ class Api {
   static String horror = '$publicDomainURL/top.atom?cat=FBFIC015000';
 
   static String bookCat = '$BASE_URL/api/v1.2/book-cat';
-  static String getBookCatById(String id) => '$BASE_URL/api/v1.2/book-cat/$id';
+  static String getBookCatById = '$BASE_URL/api/v1.2/book-cat/';
   static String bookNew = '$BASE_URL/api/v1.2/tnt-book';
 
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";

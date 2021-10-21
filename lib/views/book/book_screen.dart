@@ -4,7 +4,7 @@ import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
-import 'package:flutter_ebook_app/view_models/book_provider.dart';
+import 'package:flutter_ebook_app/view_models/book_cat_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../details/book_cat_detail.dart';
