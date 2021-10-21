@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_ebook_app/models/books.dart';
+import 'package:flutter_ebook_app/models/books_cat.dart';
 import 'package:flutter_ebook_app/services/book_api.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 

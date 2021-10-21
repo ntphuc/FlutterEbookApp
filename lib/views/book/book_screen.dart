@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/components/book_new_item.dart';
+import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
@@ -41,7 +42,10 @@ class BookScreen extends StatelessWidget {
             final model = Provider.of<BookProvider>(context);
 
             if (model.apiRequestStatus == APIRequestStatus.loading) {
-              return Center(child: CircularProgressIndicator());
+              return Container(
+                height: 200.0,
+                child: LoadingWidget(),
+              );
             }
             if (model.apiRequestStatus == APIRequestStatus.error) {
               print('Error is: --------' + model.message);
@@ -131,7 +135,10 @@ class BookScreen extends StatelessWidget {
             final bookNew = Provider.of<BookNewProvider>(context);
 
             if (bookNew.apiRequestStatus == APIRequestStatus.loading) {
-              return Center(child: CircularProgressIndicator());
+              return Container(
+                height: 200.0,
+                child: LoadingWidget(),
+              );
             }
             if (bookNew.apiRequestStatus == APIRequestStatus.error) {
               print('Error is: --------' + bookNew.message);

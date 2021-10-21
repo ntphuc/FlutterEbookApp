@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ebook_app/models/books.dart';
+import 'package:flutter_ebook_app/models/books_cat.dart';
 
 class BookCatDetail extends StatelessWidget {
   final Book book;

@@ -10,6 +10,7 @@ import 'package:xml2json/xml2json.dart';
 class Api {
   Dio dio = Dio();
   static String baseURL = 'https://catalog.feedbooks.com';
+  static const BASE_URL = 'http://chuagiacngo.com';
   static String publicDomainURL = '$baseURL/publicdomain/browse';
   static String popular = '$publicDomainURL/top.atom';
   static String recent = '$publicDomainURL/recent.atom';
@@ -22,8 +23,9 @@ class Api {
   static String romance = '$publicDomainURL/top.atom?cat=FBFIC027000';
   static String horror = '$publicDomainURL/top.atom?cat=FBFIC015000';
 
-  static String bookCat = 'http://chuagiacngo.com/api/v1.2/book-cat';
-  static String bookNew = 'http://chuagiacngo.com/api/v1.2/tnt-book';
+  static String bookCat = '$BASE_URL/api/v1.2/book-cat';
+  static String getBookCatById(String id) => '$BASE_URL/api/v1.2/book-cat/$id';
+  static String bookNew = '$BASE_URL/api/v1.2/tnt-book';
 
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";
   static bool downloaded = false;

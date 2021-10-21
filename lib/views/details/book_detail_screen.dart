@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
 import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
-import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -19,6 +18,13 @@ class BookDetail extends StatefulWidget {
 }
 
 class _BookDetailState extends State<BookDetail> {
+
+  @override
+  void initState() {
+    super.initState();
+    getPermission();
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
@@ -28,12 +34,6 @@ class _BookDetailState extends State<BookDetail> {
     final String imgTag = uuid.v4();
     final String titleTag = uuid.v4();
     final String authorTag = uuid.v4();
-
-    @override
-    void initState() {
-      super.initState();
-      getPermission();
-    }
 
     return Scaffold(
       appBar: AppBar(

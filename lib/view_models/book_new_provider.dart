@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
-import 'package:flutter_ebook_app/models/books.dart';
+import 'package:flutter_ebook_app/models/books_cat.dart';
 import 'package:flutter_ebook_app/services/book_api.dart';
 import 'package:flutter_ebook_app/services/book_new_api.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';

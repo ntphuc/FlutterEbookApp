@@ -39,11 +39,11 @@ class _SplashState extends State<Splash> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Image.asset(
-            //   "assets/images/app-icon.png",
-            //   height: 300.0,
-            //   width: 300.0,
-            // ),
+            Image.asset(
+              "assets/images/app-icon.png",
+              height: 300.0,
+              width: 300.0,
+            ),
           ],
         ),
       ),
