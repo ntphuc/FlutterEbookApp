@@ -12,6 +12,7 @@ import 'package:flutter_ebook_app/database/locator_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
 import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
+import 'package:flutter_ebook_app/util/show_toast.dart';
 import 'package:flutter_ebook_app/view_models/details_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/pdfviewer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -314,7 +315,7 @@ class _DetailsState extends State<Details> {
   _buildDownloadPDF(BuildContext context) {
     Api api = Api();
 
-    if (!Api.downloaded) {
+    if (!ShowToast.downloaded) {
       return ElevatedButton(
           onPressed: () async {
             String path = await ExtStorage.getExternalStoragePublicDirectory(

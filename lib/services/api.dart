@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/category.dart';
+import 'package:flutter_ebook_app/util/show_toast.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:xml2json/xml2json.dart';
 
@@ -28,7 +29,6 @@ class Api {
   static String bookNew = '$BASE_URL/api/v1.2/tnt-book';
 
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";
-  static bool downloaded = false;
 
   Future<CategoryFeed> getCategory(String url) async {
     var res = await dio.get(url).catchError((e) {
@@ -48,39 +48,27 @@ class Api {
 
   Future downloadBook(Dio dio, String urlBook, String savePath) async {
     try {
-      Response response = await dio.get(
-        urlBook,
-        onReceiveProgress: showDownloadProgress,
-        options: Options(
-            responseType: ResponseType.bytes,
-            followRedirects: false,
-            validateStatus: (status) {
-              return status < 500;
-            }),
-      );
-
       File file = File(savePath);
-      var raf = file.openSync(mode: FileMode.write);
-      raf.writeFromSync(response.data);
-      await raf.close();
+      if (await File(savePath).exists()) {
+        ShowToast.showFileExists();
+      } else {
+        Response response = await dio.get(
+          urlBook,
+          onReceiveProgress: ShowToast.showDownloadProgress,
+          options: Options(
+              responseType: ResponseType.bytes,
+              followRedirects: false,
+              validateStatus: (status) {
+                return status < 500;
+              }),
+        );
+
+        var raf = file.openSync(mode: FileMode.write);
+        raf.writeFromSync(response.data);
+        await raf.close();
+      }
     } catch (e) {
       print(e);
-    }
-  }
-
-  void showDownloadProgress(received, total) {
-    if (total != 1) {
-      String showPercent = (received / total * 100).toStringAsFixed(0) + "%";
-      downloaded = true;
-      print(showPercent);
-      Fluttertoast.showToast(
-          msg: 'Download: ' + showPercent,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 16.0);
     }
   }
 }

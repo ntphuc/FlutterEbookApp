@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
 import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
+import 'package:flutter_ebook_app/util/show_toast.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -167,7 +168,7 @@ class _BookDetailState extends State<BookDetail> {
 _buildDownloadPDF(BuildContext context, BookNew bookNew) {
   Api api = new Api();
 
-  if (!Api.downloaded) {
+  if (!ShowToast.downloaded) {
     ElevatedButton(
       onPressed: () async {
         String path = await ExtStorage.getExternalStoragePublicDirectory(
