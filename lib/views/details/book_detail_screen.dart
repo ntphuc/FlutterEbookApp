@@ -5,6 +5,7 @@ import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/util/show_toast.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
+import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_offline.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:uuid/uuid.dart';
@@ -19,7 +20,6 @@ class BookDetail extends StatefulWidget {
 }
 
 class _BookDetailState extends State<BookDetail> {
-
   @override
   void initState() {
     super.initState();
@@ -160,6 +160,19 @@ class _BookDetailState extends State<BookDetail> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          MyRouter.pushPage(
+            context,
+            ViewPdfOffline(),
+          );
+        },
+        child: const Icon(
+          Icons.picture_as_pdf,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blue,
       ),
     );
   }
