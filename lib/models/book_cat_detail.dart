@@ -153,7 +153,7 @@ class Child {
   Child.fromJson(Map<String, dynamic> json) {
     objects = json["objects"] == null
         ? null
-        : List<Object>.from(json["data"].map((x) => Object.fromJson(x)));
+        : List<Object>.from(json["objects"].map((x) => Object.fromJson(x)));
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 

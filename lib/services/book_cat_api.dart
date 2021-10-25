@@ -35,14 +35,14 @@ class BookApi {
     }
   }
 
-  Future<List<Root>> getBookCatDetail(int bookId) async {
+  Future<Child> getBookCatDetail(int bookId) async {
     final response = await http.get('${Api.getBookCatById}$bookId');
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
 
-      List<dynamic> body = json['child'];
-      List<Root> objects = body.map((dynamic item) => Root.fromJson(item)).toList();
+      var body = json['child'];
+      Child objects = Child.fromJson(body);
 
       return objects;
     } else {

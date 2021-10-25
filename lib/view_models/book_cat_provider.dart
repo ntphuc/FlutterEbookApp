@@ -10,11 +10,13 @@ class BookProvider extends ChangeNotifier {
   APIRequestStatus _apiRequestStatus = APIRequestStatus.unInitialized;
 
   List<Book> books = [];
-  List<Root> roots = [];
+  Child child; //List<Root> roots = [];
   String message = '';
 
-  BookProvider() {
+  BookProvider({int bookId}) {
     _fetchBooks();
+    if (bookId != null)
+      _fetchBookDetail(bookId);
   }
 
   APIRequestStatus get apiRequestStatus => _apiRequestStatus;
@@ -36,9 +38,9 @@ class BookProvider extends ChangeNotifier {
   Future<void> _fetchBookDetail(int bookId) async {
     _apiRequestStatus = APIRequestStatus.loading;
     try {
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 2));
       final apiBookDetail = await BookApi.instance.getBookCatDetail(bookId);
-      roots = apiBookDetail;
+      child = apiBookDetail;
       _apiRequestStatus = APIRequestStatus.loaded;
     } catch (e) {
       message = '$e';
