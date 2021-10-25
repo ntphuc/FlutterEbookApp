@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
-import 'package:flutter_ebook_app/models/books_cat.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
-import 'package:flutter_ebook_app/util/router.dart';
-import 'package:flutter_ebook_app/view_models/book_cat_provider.dart';
-import 'package:flutter_ebook_app/views/details/tnt_book_detail.dart';
+import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
 import 'package:provider/provider.dart';
 
-class BookCatDetail extends StatefulWidget {
-  final Book book;
+class TntBookDetail extends StatefulWidget {
+  const TntBookDetail({Key key, this.bookId}) : super(key: key);
 
-  const BookCatDetail({Key key, this.book}) : super(key: key);
+  final int bookId;
 
   @override
-  State<BookCatDetail> createState() => _BookCatDetailState();
+  _TntBookDetailState createState() => _TntBookDetailState();
 }
 
-class _BookCatDetailState extends State<BookCatDetail> {
+class _TntBookDetailState extends State<TntBookDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.book.name),
+        title: Text("${widget.bookId}"),
       ),
       body: Container(
         child: ChangeNotifierProvider(
-          create: (context) => BookProvider(bookId: widget.book.id),
+          create: (context) => BookNewProvider(bookId: widget.bookId),
           child: Builder(builder: (context) {
-            final model = Provider.of<BookProvider>(context);
+            final model = Provider.of<BookNewProvider>(context);
             if (model.apiRequestStatus == APIRequestStatus.loading) {
               return Container(
                 height: 200.0,
@@ -38,21 +35,18 @@ class _BookCatDetailState extends State<BookCatDetail> {
               print('Error is: --------' + model.message);
               return Center(child: Text('An Error Occurred ${model.message}'));
             }
-            final books = model.child;
+            final books = model.bookDetail;
+            print('BOOK LENGTH is: --------' + books.length.toString());
             return ListView.builder(
               primary: false,
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               scrollDirection: Axis.vertical,
-              itemCount: books.objects.length,
+              itemCount: books.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final book = books.objects[index];
+                final book = books[index];
                 return InkWell(
                   onTap: () {
-                    MyRouter.pushPage(
-                      context,
-                      TntBookDetail(bookId: book.id),
-                    );
                   },
                   child: Container(
                     height: 150.0,
@@ -137,7 +131,7 @@ class _BookCatDetailState extends State<BookCatDetail> {
                                 style: TextStyle(
                                   fontSize: 13.0,
                                   color:
-                                      Theme.of(context).textTheme.caption.color,
+                                  Theme.of(context).textTheme.caption.color,
                                 ),
                               ),
                             ],
@@ -153,10 +147,5 @@ class _BookCatDetailState extends State<BookCatDetail> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }

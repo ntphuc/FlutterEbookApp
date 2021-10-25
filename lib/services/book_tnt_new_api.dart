@@ -17,7 +17,27 @@ class BookNewApi {
   }
 
   Future<List<BookNew>> getAllBookNew() async {
-    final response = await http.get(Api.bookNew);
+    final response = await http.get(Api.tntBookNew);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json = jsonDecode(response.body);
+
+      List<dynamic> body = json['objects'];
+      print('need obj data:----' + body.length.toString());
+      print(body.runtimeType);
+
+      // this line will allow us to get the different book from the json file
+      // and putting them into a list
+      List<BookNew> listBookNew = body.map((dynamic item) => BookNew.fromJson(item)).toList();
+
+      return listBookNew;
+    } else {
+      throw Exception("Failed to get book new");
+    }
+  }
+
+  Future<List<BookNew>> getBookCatDetail(int bookTntId) async {
+    final response = await http.get('${Api.getTntBookNewById}$bookTntId');
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);

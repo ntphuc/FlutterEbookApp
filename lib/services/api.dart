@@ -26,7 +26,8 @@ class Api {
 
   static String bookCat = '$BASE_URL/api/v1.2/book-cat';
   static String getBookCatById = '$BASE_URL/api/v1.2/book-cat/';
-  static String bookNew = '$BASE_URL/api/v1.2/tnt-book';
+  static String tntBookNew = '$BASE_URL/api/v1.2/tnt-book';
+  static String getTntBookNewById = '$BASE_URL/api/v1.2/tnt-book/';
 
   static String urlBook = "http://www.africau.edu/images/default/sample.pdf";
 
