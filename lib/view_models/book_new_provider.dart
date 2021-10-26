@@ -9,7 +9,7 @@ class BookNewProvider extends ChangeNotifier {
   APIRequestStatus _apiRequestStatus = APIRequestStatus.unInitialized;
 
   List<BookNew> bookNew = [];
-  List<BookNew> bookDetail = [];
+  BookNew bookDetail;
   String message = '';
 
   BookNewProvider({int bookId}) {

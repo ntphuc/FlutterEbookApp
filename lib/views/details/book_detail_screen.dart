@@ -28,13 +28,12 @@ class _BookDetailState extends State<BookDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
     Api api = new Api();
 
     final uuid = Uuid();
-    final String imgTag = uuid.v4();
-    final String titleTag = uuid.v4();
-    final String authorTag = uuid.v4();
+    final String imgTag = uuid.v1();
+    final String titleTag = uuid.v1();
+    final String authorTag = uuid.v1();
 
     return Scaffold(
       appBar: AppBar(
@@ -134,15 +133,13 @@ class _BookDetailState extends State<BookDetail> {
                             children: [Text('Read Book')],
                           ),
                         ),
-                        // button download book offline and read book offline
                         //_buildDownloadPDF(context, widget.bookNew),
                         ElevatedButton(
                           onPressed: () async {
                             String path = await ExtStorage
                                 .getExternalStoragePublicDirectory(
                                     ExtStorage.DIRECTORY_DOWNLOADS);
-                            String fullPath =
-                                '$path/${widget.bookNew.name}.pdf';
+                            String fullPath = '$path/Books/${widget.bookNew.name}.pdf';
                             api.downloadBook(
                                 api.dio, widget.bookNew.pdf, fullPath);
                             print('Link save book:--- ' + fullPath);

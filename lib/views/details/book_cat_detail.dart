@@ -41,7 +41,7 @@ class _BookCatDetailState extends State<BookCatDetail> {
             final books = model.child;
             return ListView.builder(
               primary: false,
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
               scrollDirection: Axis.vertical,
               itemCount: books.objects.length,
               shrinkWrap: true,
@@ -51,7 +51,7 @@ class _BookCatDetailState extends State<BookCatDetail> {
                   onTap: () {
                     MyRouter.pushPage(
                       context,
-                      TntBookDetail(bookId: book.id),
+                      TntBookDetail(bookId: book.id, bookName: book.name),
                     );
                   },
                   child: Container(

@@ -16,6 +16,7 @@ class _ShowPdfOffState extends State<ShowPdfOff> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
