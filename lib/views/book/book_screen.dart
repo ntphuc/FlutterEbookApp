@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/components/book_new_item.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
+import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
@@ -14,7 +15,7 @@ class BookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List Of Books'),
+        title: Text('${Constants.appName}'),
       ),
       body: _buildBody(),
     );
@@ -23,9 +24,11 @@ class BookScreen extends StatelessWidget {
   Widget _buildBody() {
     return ListView(
       children: <Widget>[
+        SizedBox(height: 10.0),
+        _buildSectionTitle('${Constants.bookCategories}'),
         _buildFeaturedListBook(),
         SizedBox(height: 10.0),
-        _buildSectionTitle('List Book New'),
+        _buildSectionTitle('${Constants.bookSpecial}'),
         SizedBox(height: 10.0),
         _buildFeaturedListBookNew()
       ],
