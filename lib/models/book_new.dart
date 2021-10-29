@@ -13,7 +13,7 @@ class BookNew {
   //Publisher publisher;
   String isbn;
   String content;
-  String q_album;
+  int q_album;
   String pdf;
   int pdfSize;
 

@@ -15,6 +15,7 @@ class BookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('${Constants.appName}'),
       ),
       body: _buildBody(),
@@ -25,10 +26,10 @@ class BookScreen extends StatelessWidget {
     return ListView(
       children: <Widget>[
         SizedBox(height: 10.0),
-        _buildSectionTitle('${Constants.bookCategories}'),
+        Constants.buildSectionTitle('${Constants.bookCategories}'),
         _buildFeaturedListBook(),
         SizedBox(height: 10.0),
-        _buildSectionTitle('${Constants.bookSpecial}'),
+        Constants.buildSectionTitle('${Constants.bookSpecial}'),
         SizedBox(height: 10.0),
         _buildFeaturedListBookNew()
       ],
@@ -111,24 +112,6 @@ class BookScreen extends StatelessWidget {
     );
   }
 
-  _buildSectionTitle(String title) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            '$title',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   _buildFeaturedListBookNew() {
     return Container(
       child: Center(
@@ -157,7 +140,10 @@ class BookScreen extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 final book = abc[index];
-                return customListTitle(book, context);
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                  child: customListTitle(book, context),
+                );
               },
             );
           }),

@@ -182,13 +182,13 @@ class _DetailsState extends State<Details> {
                 SizedBox(
                   height: 12.0,
                 ),
-                Center(
-                  child: Container(
-                    height: 30.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: _buildDownloadPDF(context),
-                  ),
-                ),
+                // Center(
+                //   child: Container(
+                //     height: 30.0,
+                //     width: MediaQuery.of(context).size.width,
+                //     child: _buildDownloadPDF(context),
+                //   ),
+                // ),
               ],
             ),
           ),
