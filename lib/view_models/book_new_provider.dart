@@ -37,7 +37,7 @@ class BookNewProvider extends ChangeNotifier {
   Future<void> _fetchBookTntDetail(int bookId) async {
     _apiRequestStatus = APIRequestStatus.loading;
     try {
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 3));
       final apiBookTntDetail = await BookNewApi.instance.getBookCatDetail(bookId);
       bookDetail = apiBookTntDetail;
       _apiRequestStatus = APIRequestStatus.loaded;

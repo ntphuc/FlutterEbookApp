@@ -28,12 +28,25 @@ class _TntBookDetailState extends State<TntBookDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.bookName}"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.book),
+            onPressed: () async {
+              MyRouter.pushPage(
+                context,
+                ViewPdfOffline(),
+              );
+            },
+          ),
+        ],
+        title: Text(widget.bookName),
       ),
-      body: ListView (
+      body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         children: [
-          SizedBox(height: 10.0,),
+          SizedBox(
+            height: 10.0,
+          ),
           Container(
             child: ChangeNotifierProvider(
               create: (context) => BookNewProvider(bookId: widget.bookId),
@@ -47,7 +60,8 @@ class _TntBookDetailState extends State<TntBookDetail> {
                 }
                 if (model.apiRequestStatus == APIRequestStatus.error) {
                   print('Error is: --------' + model.message);
-                  return Center(child: Text('An Error Occurred ${model.message}'));
+                  return Center(
+                      child: Text('An Error Occurred ${model.message}'));
                 }
                 final books = model.bookDetail;
                 print('BOOK LENGTH is: --------' + books.toString());
@@ -132,7 +146,8 @@ class _TntBookDetailState extends State<TntBookDetail> {
                                 SizedBox(height: 10.0),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     // button read book file pdf
@@ -145,8 +160,11 @@ class _TntBookDetailState extends State<TntBookDetail> {
                                         );
                                       },
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [Text('Read Book')],
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text('${Constants.readBook}')
+                                        ],
                                       ),
                                     ),
                                     //_buildDownloadPDF(context, widget.bookNew),
@@ -154,7 +172,7 @@ class _TntBookDetailState extends State<TntBookDetail> {
                                       onPressed: () async {
                                         String path = await ExtStorage
                                             .getExternalStoragePublicDirectory(
-                                            ExtStorage.DIRECTORY_DOWNLOADS);
+                                                ExtStorage.DIRECTORY_DOWNLOADS);
                                         String fullPath =
                                             '$path/${books.name}.pdf';
                                         api.downloadBook(
@@ -162,8 +180,11 @@ class _TntBookDetailState extends State<TntBookDetail> {
                                         print('Link save book:--- ' + fullPath);
                                       },
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [Text('Download')],
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text('${Constants.downloadBook}')
+                                        ],
                                       ),
                                     )
                                   ],
@@ -185,20 +206,16 @@ class _TntBookDetailState extends State<TntBookDetail> {
           DescriptionTextWidget(
             text: '${Constants.bookTextDescription}',
           ),
+          SizedBox(height: 10.0),
+          Constants.buildTitle('${Constants.descriptionAuthor}'),
+          Constants.buildDivider(),
+          DescriptionTextWidget(
+            text: '${Constants.bookTextAuthor}',
+          ),
+          SizedBox(
+            height: 20.0,
+          )
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          MyRouter.pushPage(
-            context,
-            ViewPdfOffline(),
-          );
-        },
-        child: const Icon(
-          Icons.picture_as_pdf,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.blue,
       ),
     );
   }

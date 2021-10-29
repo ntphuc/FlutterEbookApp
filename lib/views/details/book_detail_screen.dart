@@ -145,7 +145,7 @@ class _BookDetailState extends State<BookDetail> {
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Text('Đọc sách')],
+                              children: [Text('${Constants.readBook}')],
                             ),
                           ),
                           // _buildDownloadPDF(context, widget.bookNew),
@@ -162,7 +162,7 @@ class _BookDetailState extends State<BookDetail> {
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Text('Tải xuống')],
+                              children: [Text('${Constants.downloadBook}')],
                             ),
                           )
                         ],
@@ -185,6 +185,9 @@ class _BookDetailState extends State<BookDetail> {
           DescriptionTextWidget(
             text: '${Constants.bookTextAuthor}',
           ),
+          SizedBox(
+            height: 20.0,
+          )
         ],
       ),
     );
@@ -218,7 +221,7 @@ _buildDownloadPDF(BuildContext context, BookNew bookNew) {
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('Đọc sách')],
+          children: [Text('Sách Offline')],
         ));
   }
 }
