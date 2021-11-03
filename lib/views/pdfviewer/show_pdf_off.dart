@@ -24,11 +24,8 @@ class _ShowPdfOffState extends State<ShowPdfOff> {
             icon: new Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: Center(
-              child: Text(
-            'PdfViewer',
-            style: TextStyle(color: Colors.white),
-          )),
+          title: Text('${widget.file.path.split('/').last}',
+              style: TextStyle(color: Colors.white, fontSize: 18)),
         ),
         body: SfPdfViewer.file(File(widget.file.path)),
       ), //Scaffold

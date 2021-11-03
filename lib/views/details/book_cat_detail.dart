@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/models/books_cat.dart';
+import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_cat_provider.dart';
@@ -132,14 +133,16 @@ class _BookCatDetailState extends State<BookCatDetail> {
                                 ),
                                 SizedBox(height: 10.0),
                                 Text(
-                                  '${book.type.length < 100 ? book.type : book.type.substring(0, 100)}...'
+                                  '${Constants.bookTextDescription.length < 100 ? Constants.bookTextDescription : Constants.bookTextDescription.substring(0, 100)}...'
                                       .replaceAll(r'\n', '\n')
                                       .replaceAll(r'\r', '')
                                       .replaceAll(r'\"', '"'),
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color:
-                                        Theme.of(context).textTheme.caption.color,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        .color,
                                   ),
                                 ),
                               ],

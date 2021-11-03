@@ -53,71 +53,97 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF Offline'),
+        title: Text('Downloads'),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                  itemCount: file.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = file[index].toString();
-                    return Dismissible(
-                      key: Key(item),
-                      direction: DismissDirection.startToEnd,
-                      onDismissed: (direction) {
-                        deleteFiles(file.elementAt(index));
-                        setState(() {
-                          file.removeAt(index);
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('$item dismissed')));
-                      },
-                      background: Container(
-                        color: Colors.red,
-                        //margin: EdgeInsets.symmetric(horizontal: 15),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 8.0,),
-                            Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                            ),
-                            Text('Delete', style: TextStyle(color: Colors.white),)
-                          ],
-                        ),
-                      ),
-                      child: Card(
-                        elevation: 2.0,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ShowPdfOff(
-                                    file: file[index],
-                                  ),
-                                ));
-                          },
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.book,
-                              color: Colors.blue[800],
-                              size: 40.0,
-                            ),
-                            title: Text(file[index].path.split('/').last),
-                            // subtitle: Text(file[index].toString()),
+      body: file.isEmpty ? _buildEmptyListView() : _buildBodyList(),
+    );
+  }
+
+  _buildBodyList() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+                itemCount: file.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = file[index].toString();
+                  return Dismissible(
+                    key: Key(item),
+                    direction: DismissDirection.startToEnd,
+                    onDismissed: (direction) {
+                      deleteFiles(file.elementAt(index));
+                      setState(() {
+                        file.removeAt(index);
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('$item dismissed')));
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      //margin: EdgeInsets.symmetric(horizontal: 15),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          SizedBox(width: 8.0,),
+                          Icon(
+                            Icons.delete,
+                            color: Colors.white,
                           ),
+                          Text('Delete', style: TextStyle(color: Colors.white),)
+                        ],
+                      ),
+                    ),
+                    child: Card(
+                      elevation: 2.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ShowPdfOff(
+                                  file: file[index],
+                                ),
+                              ));
+                        },
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.book,
+                            color: Colors.blue[800],
+                            size: 40.0,
+                          ),
+                          title: Text(file[index].path.split('/').last),
+                          // subtitle: Text(file[index].toString()),
                         ),
                       ),
-                    );
-                  }),
-            )
-          ],
-        ),
+                    ),
+                  );
+                }),
+          )
+        ],
       ),
     );
   }
+}
+
+_buildEmptyListView() {
+  return Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Image.asset(
+          'assets/images/empty.png',
+          height: 300.0,
+          width: 300.0,
+        ),
+        Text(
+          'Nothing is here',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  );
 }

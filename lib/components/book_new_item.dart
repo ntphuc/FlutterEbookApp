@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/models/book_new.dart';
+import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/views/details/book_detail_screen.dart';
 import 'package:uuid/uuid.dart';
@@ -90,7 +91,7 @@ Widget customListTitle(BookNew bookNew, BuildContext context) {
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  '${bookNew.type.length < 100 ? bookNew.type : bookNew.type.substring(0, 100)}...'
+                  '${Constants.bookTextDescription.length < 100 ? Constants.bookTextDescription : Constants.bookTextDescription.substring(0, 100)}...'
                       .replaceAll(r'\n', '\n')
                       .replaceAll(r'\r', '')
                       .replaceAll(r'\"', '"'),
