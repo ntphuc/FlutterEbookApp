@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:ext_storage/ext_storage.dart';
@@ -25,10 +26,9 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
 
   Future<String> _listOfFiles() async {
     path = (await ExtStorage.getExternalStorageDirectory()) + "/Download/";
-    print('MARKET_TEA: ' + path);
-    print('MARKET_TEA: ' + ExtStorage.getExternalStorageDirectory().toString());
+    print('MARKET_TEA check path: ' + path);
     setState(() {
-      file = Directory("$path").listSync(); //use your folder name insted of resume.
+      file = Directory("$path").listSync();
       print("MARKET_TEA: " + file.length.toString());
       directoryPath = path;
     });
@@ -53,7 +53,7 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Downloads'),
+        title: Text('Sách tải về'),
       ),
       body: file.isEmpty ? _buildEmptyListView() : _buildBodyList(),
     );
@@ -85,12 +85,17 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          SizedBox(width: 8.0,),
+                          SizedBox(
+                            width: 8.0,
+                          ),
                           Icon(
                             Icons.delete,
                             color: Colors.white,
                           ),
-                          Text('Delete', style: TextStyle(color: Colors.white),)
+                          Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),

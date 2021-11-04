@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
       },
       {
         'icon': Feather.download,
-        'title': 'Tải xuống',
+        'title': 'Sách tải về',
         'function': () => _pushPage(ViewPdfOffline()),
       },
       {
