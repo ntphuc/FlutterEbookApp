@@ -28,10 +28,8 @@ class _ExploreState extends State<Explore> {
               'Explore',
             ),
           ),
-          body: BodyBuilder(
-            apiRequestStatus: homeProvider.apiRequestStatus,
-            child: _buildBodyList(homeProvider),
-            reload: () => homeProvider.getFeeds(),
+          body: Center(
+            child: Text('Explore'),
           ),
         );
       },

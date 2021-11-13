@@ -4,7 +4,7 @@ import 'package:flutter_ebook_app/components/loading_widget.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
-import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
+import 'package:flutter_ebook_app/view_models/book_tnt_provider.dart';
 import 'package:flutter_ebook_app/view_models/book_cat_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +38,7 @@ class BookScreen extends StatelessWidget {
 
   _buildFeaturedListBook() {
     return Container(
-      height: 50.0,
+      height: 200.0,
       child: Center(
         child: ChangeNotifierProvider(
           create: (context) => BookProvider(),
@@ -57,45 +57,56 @@ class BookScreen extends StatelessWidget {
             }
             final books = model.books;
             return Container(
-              height: 50.0,
+              height: 200.0,
               child: Center(
                 child: ListView.builder(
                   primary: false,
-                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
                   scrollDirection: Axis.horizontal,
                   itemCount: books.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     final book = books[index];
-                    return Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20.0),
+                    return Container(
+                      width: 120.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
                           ),
-                        ),
-                        child: InkWell(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20.0),
-                          ),
-                          onTap: () {
-                            MyRouter.pushPage(
-                              context,
-                              BookCatDetail(book: book),
-                            );
-                            print('${book.resource_uri}');
-                          },
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Text(
-                                '${book.name}',
-                                style: TextStyle(
-                                  color: Colors.white,
+                          elevation: 4.0,
+                          child: InkWell(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            onTap: () {
+                              MyRouter.pushPage(
+                                context,
+                                BookCatDetail(book: book),
+                              );
+                              print('${book.resource_uri}');
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              child: Hero(
+                                  tag: "BookCat",
+                                  child: Container(
+                                height: 200.0,
+                                width: 130.0,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: (book.thumbnail == null)
+                                          ? AssetImage('assets/images/place.png')
+                                          : NetworkImage(book.thumbnail),
+                                      fit: BoxFit.scaleDown),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
+                              )
                               ),
                             ),
                           ),

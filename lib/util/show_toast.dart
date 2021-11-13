@@ -7,10 +7,15 @@ class ShowToast {
   static showDownloadProgress(received, total) {
     if (total != 1) {
       String showPercent = (received / total * 100).toStringAsFixed(0) + "%";
+      String downloadSuccess = "100%";
+      String showMessageSuccess = "";
+      if (showPercent.compareTo(downloadSuccess) != null) {
+        showMessageSuccess = downloadSuccess;
+      }
       downloaded = true;
       print(showPercent);
       Fluttertoast.showToast(
-          msg: 'Download: ' + showPercent,
+          msg: 'Download: ' + showMessageSuccess,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

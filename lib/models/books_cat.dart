@@ -5,6 +5,7 @@ class Book {
   String enitytType;
   String hdepth;
   String hweight;
+  String thumbnail;
 
   Book({
     this.id,
@@ -13,6 +14,7 @@ class Book {
     this.enitytType,
     this.hdepth,
     this.hweight,
+    this.thumbnail,
   });
 
   Book.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class Book {
     enitytType = json['enitytType'];
     hdepth = json['hdepth'];
     hweight = json['hweight'];
+    thumbnail = json['thumbnail'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class Book {
     data['enitytType'] = this.enitytType;
     data['hdepth'] = this.hdepth;
     data['hweight'] = this.hweight;
+    data['thumbnail'] = this.thumbnail;
     return data;
   }
 }

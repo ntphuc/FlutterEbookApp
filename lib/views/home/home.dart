@@ -58,11 +58,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       onRefresh: () => homeProvider.getFeeds(),
       child: ListView(
         children: <Widget>[
-          _buildFeaturedSection(homeProvider),
-          SizedBox(height: 20.0),
-          _buildSectionTitle('Categories'),
-          SizedBox(height: 10.0),
-          _buildGenreSection(homeProvider),
+          // _buildFeaturedSection(homeProvider),
+          // SizedBox(height: 20.0),
+          // _buildSectionTitle('Categories'),
+          // SizedBox(height: 10.0),
+          // _buildGenreSection(homeProvider),
           SizedBox(height: 20.0),
           _buildSectionTitle('Recently Added'),
           SizedBox(height: 20.0),

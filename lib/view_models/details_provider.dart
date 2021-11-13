@@ -17,8 +17,8 @@ class DetailsProvider extends ChangeNotifier {
   CategoryFeed categoryFeed = CategoryFeed();
   bool loading = true;
   Entry entry;
-  var favDB = FavoriteDB();
-  var dlDB = DownloadsDB();
+  var favoriteDB = FavoriteDB();
+  var downloadDB = DownloadsDB();
 
   bool checkFavorite = false;
   bool downloaded = false;
@@ -39,7 +39,7 @@ class DetailsProvider extends ChangeNotifier {
 
   // check if book is favorited
   checkFav() async {
-    List c = await favDB.check({'id': entry.id.t.toString()});
+    List c = await favoriteDB.check({'id': entry.id.t.toString()});
     if (c.isNotEmpty) {
       setFaved(true);
     } else {
@@ -48,12 +48,12 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   addFav() async {
-    await favDB.add({'id': entry.id.t.toString(), 'item': entry.toJson()});
+    await favoriteDB.add({'id': entry.id.t.toString(), 'item': entry.toJson()});
     checkFav();
   }
 
   removeFav() async {
-    favDB.remove({'id': entry.id.t.toString()}).then((v) {
+    favoriteDB.remove({'id': entry.id.t.toString()}).then((v) {
       print(v);
       checkFav();
     });
@@ -61,7 +61,7 @@ class DetailsProvider extends ChangeNotifier {
 
   // check if book has been downloaded before
   checkDownload() async {
-    List downloads = await dlDB.check({'id': entry.id.t.toString()});
+    List downloads = await downloadDB.check({'id': entry.id.t.toString()});
     if (downloads.isNotEmpty) {
       // check if book has been deleted
       String path = downloads[0]['path'];
@@ -77,18 +77,18 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   Future<List> getDownload() async {
-    List c = await dlDB.check({'id': entry.id.t.toString()});
+    List c = await downloadDB.check({'id': entry.id.t.toString()});
     return c;
   }
 
   addDownload(Map body) async {
-    await dlDB.removeAllWithId({'id': entry.id.t.toString()});
-    await dlDB.add(body);
+    await downloadDB.removeAllWithId({'id': entry.id.t.toString()});
+    await downloadDB.add(body);
     checkDownload();
   }
 
   removeDownload() async {
-    dlDB.remove({'id': entry.id.t.toString()}).then((v) {
+    downloadDB.remove({'id': entry.id.t.toString()}).then((v) {
       print(v);
       checkDownload();
     });

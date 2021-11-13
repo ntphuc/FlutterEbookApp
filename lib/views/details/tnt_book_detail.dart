@@ -6,7 +6,7 @@ import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
 import 'package:flutter_ebook_app/util/router.dart';
-import 'package:flutter_ebook_app/view_models/book_new_provider.dart';
+import 'package:flutter_ebook_app/view_models/book_tnt_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_offline.dart';
 import 'package:provider/provider.dart';

@@ -90,16 +90,12 @@ Widget customListTitle(BookNew bookNew, BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 10.0),
-                Text(
-                  '${Constants.bookTextDescription.length < 100 ? Constants.bookTextDescription : Constants.bookTextDescription.substring(0, 100)}...'
-                      .replaceAll(r'\n', '\n')
-                      .replaceAll(r'\r', '')
-                      .replaceAll(r'\"', '"'),
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Theme.of(context).textTheme.caption.color,
-                  ),
-                ),
+                Text((bookNew.content == null)
+                    ? '${Constants.bookTextDescription.length < 100 ? Constants.bookTextDescription : Constants.bookTextDescription.substring(0, 100)}...'
+                        .replaceAll(r'\n', '\n')
+                        .replaceAll(r'\r', '')
+                        .replaceAll(r'\"', '"')
+                    : bookNew.content),
               ],
             ),
           ),
