@@ -37,6 +37,9 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   advance_pdf_viewer: ^1.2.2
   syncfusion_flutter_pdfviewer: any
+  flutter_downloader: ^1.4.4
+  ext_storage: any
+  http: any
 
 dev_dependencies:
   flutter_test:

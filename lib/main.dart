@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/theme/theme_config.dart';
 import 'package:flutter_ebook_app/view_models/app_provider.dart';
+import 'package:flutter_ebook_app/view_models/book_tnt_provider.dart';
+import 'package:flutter_ebook_app/view_models/book_cat_provider.dart';
 import 'package:flutter_ebook_app/view_models/details_provider.dart';
 import 'package:flutter_ebook_app/view_models/favorites_provider.dart';
 import 'package:flutter_ebook_app/view_models/genre_provider.dart';
@@ -15,6 +17,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
+        ChangeNotifierProvider(create: (_) => BookProvider()),
+        ChangeNotifierProvider(create: (_) => BookNewProvider()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => DetailsProvider()),
         ChangeNotifierProvider(create: (_) => FavoritesProvider()),

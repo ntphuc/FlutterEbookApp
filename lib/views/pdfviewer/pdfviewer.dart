@@ -1,5 +1,6 @@
 // ignore_for_file: missing_return
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ebook_app/models/category.dart';
@@ -27,13 +28,13 @@ class _PdfViewerState extends State<PdfViewer> {
     super.initState();
     debugPrint("initState = " + _isLoading.toString());
 
-    loadDocument();
     //loadFromAssets();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
@@ -46,39 +47,11 @@ class _PdfViewerState extends State<PdfViewer> {
             'PdfViewer',
             style: TextStyle(color: Colors.white),
           )),
-        ), //Appbar
-        body: SfPdfViewer.network(
-          'http://conorlastowka.com/book/CitationNeededBook-Sample.pdf',
         ),
-        // body: Column(
-        //   children: <Widget>[
-        //     Expanded(
-        //       child: Center(
-        //         child: _isLoading
-        //             ? Center(
-        //                 child:
-        //                     CircularProgressIndicator(), //Shows indicator if _isLoading is true
-        //               ) //Center
-        //             : PDFViewer(
-        //                 document: document,
-        //               ), //PDFViewer
-        //       ), //Center
-        //     ), //Expanded
-        //   ], //<Widget>[]
-        // ), //Column
+        body:
+            SfPdfViewer.file(File('/storage/emulated/0/Download/new_task.pdf')),
       ), //Scaffold
     ); //MaterialApp
-  }
-
-  void loadDocument() async {
-    document = await PDFDocument.fromURL(
-            "http://conorlastowka.com/book/CitationNeededBook-Sample.pdf")
-        .then((value) {
-      setState(() => _isLoading = false);
-      //return document;
-    }).catchError((Object error) {
-      return null;
-    });
   }
 
   Future<PDFDocument> loadFromAssets() async {

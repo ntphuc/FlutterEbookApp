@@ -4,6 +4,7 @@ import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/app_provider.dart';
 import 'package:flutter_ebook_app/views/downloads/downloads.dart';
 import 'package:flutter_ebook_app/views/favorites/favorites.dart';
+import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_offline.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -21,13 +22,13 @@ class _ProfileState extends State<Profile> {
     items = [
       {
         'icon': Feather.heart,
-        'title': 'Favorites',
+        'title': 'Sách yêu thích',
         'function': () => _pushPage(Favorites()),
       },
       {
         'icon': Feather.download,
-        'title': 'Downloads',
-        'function': () => _pushPage(Downloads()),
+        'title': 'Sách tải về',
+        'function': () => _pushPage(ViewPdfOffline()),
       },
       {
         'icon': Feather.moon,
@@ -36,12 +37,12 @@ class _ProfileState extends State<Profile> {
       },
       {
         'icon': Feather.info,
-        'title': 'About',
+        'title': 'Thông tin về ứng dụng',
         'function': () => showAbout(),
       },
       {
         'icon': Feather.file_text,
-        'title': 'Licenses',
+        'title': 'Giấy phép',
         'function': () => _pushPageDialog(LicensePage()),
       },
     ];
@@ -125,10 +126,10 @@ class _ProfileState extends State<Profile> {
       builder: (_) {
         return AlertDialog(
           title: Text(
-            'About',
+            'Thông tin về ứng dụng',
           ),
           content: Text(
-            'Simple eBook app by JideGuru',
+            'Ứng dụng chính thức của Chùa Giác Ngộ tập hợp các Pháp thoại của TT.Thích Nhật Từ',
           ),
           actions: <Widget>[
             FlatButton(

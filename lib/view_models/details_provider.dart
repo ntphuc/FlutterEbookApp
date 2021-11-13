@@ -6,7 +6,7 @@ import 'package:flutter_ebook_app/components/download_alert.dart';
 import 'package:flutter_ebook_app/database/download_helper.dart';
 import 'package:flutter_ebook_app/database/favorite_helper.dart';
 import 'package:flutter_ebook_app/models/category.dart';
-import 'package:flutter_ebook_app/util/api.dart';
+import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -14,13 +14,13 @@ import 'package:permission_handler/permission_handler.dart';
 import '../models/category.dart';
 
 class DetailsProvider extends ChangeNotifier {
-  CategoryFeed related = CategoryFeed();
+  CategoryFeed categoryFeed = CategoryFeed();
   bool loading = true;
   Entry entry;
-  var favDB = FavoriteDB();
-  var dlDB = DownloadsDB();
+  var favoriteDB = FavoriteDB();
+  var downloadDB = DownloadsDB();
 
-  bool faved = false;
+  bool checkFavorite = false;
   bool downloaded = false;
   Api api = Api();
 
@@ -39,7 +39,7 @@ class DetailsProvider extends ChangeNotifier {
 
   // check if book is favorited
   checkFav() async {
-    List c = await favDB.check({'id': entry.id.t.toString()});
+    List c = await favoriteDB.check({'id': entry.id.t.toString()});
     if (c.isNotEmpty) {
       setFaved(true);
     } else {
@@ -48,12 +48,12 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   addFav() async {
-    await favDB.add({'id': entry.id.t.toString(), 'item': entry.toJson()});
+    await favoriteDB.add({'id': entry.id.t.toString(), 'item': entry.toJson()});
     checkFav();
   }
 
   removeFav() async {
-    favDB.remove({'id': entry.id.t.toString()}).then((v) {
+    favoriteDB.remove({'id': entry.id.t.toString()}).then((v) {
       print(v);
       checkFav();
     });
@@ -61,7 +61,7 @@ class DetailsProvider extends ChangeNotifier {
 
   // check if book has been downloaded before
   checkDownload() async {
-    List downloads = await dlDB.check({'id': entry.id.t.toString()});
+    List downloads = await downloadDB.check({'id': entry.id.t.toString()});
     if (downloads.isNotEmpty) {
       // check if book has been deleted
       String path = downloads[0]['path'];
@@ -77,18 +77,18 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   Future<List> getDownload() async {
-    List c = await dlDB.check({'id': entry.id.t.toString()});
+    List c = await downloadDB.check({'id': entry.id.t.toString()});
     return c;
   }
 
   addDownload(Map body) async {
-    await dlDB.removeAllWithId({'id': entry.id.t.toString()});
-    await dlDB.add(body);
+    await downloadDB.removeAllWithId({'id': entry.id.t.toString()});
+    await downloadDB.add(body);
     checkDownload();
   }
 
   removeDownload() async {
-    dlDB.remove({'id': entry.id.t.toString()}).then((v) {
+    downloadDB.remove({'id': entry.id.t.toString()}).then((v) {
       print(v);
       checkDownload();
     });
@@ -119,7 +119,7 @@ class DetailsProvider extends ChangeNotifier {
         ? appDocDir.path + '/$filename.epub'
         : appDocDir.path.split('Android')[0] +
             '${Constants.appName}/$filename.epub';
-    print(path);
+    print('Link url path file book: ----- ' + path);
     File file = File(path);
     if (!await file.exists()) {
       await file.create();
@@ -158,12 +158,12 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   void setRelated(value) {
-    related = value;
+    categoryFeed = value;
     notifyListeners();
   }
 
   CategoryFeed getRelated() {
-    return related;
+    return categoryFeed;
   }
 
   void setEntry(value) {
@@ -172,7 +172,7 @@ class DetailsProvider extends ChangeNotifier {
   }
 
   void setFaved(value) {
-    faved = value;
+    checkFavorite = value;
     notifyListeners();
   }
 

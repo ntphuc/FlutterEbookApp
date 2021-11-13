@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/util/dialogs.dart';
+import 'package:flutter_ebook_app/views/book/book_screen.dart';
 import 'package:flutter_ebook_app/views/explore/explore.dart';
 import 'package:flutter_ebook_app/views/home/home.dart';
 import 'package:flutter_ebook_app/views/settings/settings.dart';
@@ -25,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           onPageChanged: onPageChanged,
           children: <Widget>[
             Home(),
+            BookScreen(),
             Explore(),
             Profile(),
           ],
@@ -40,25 +42,25 @@ class _MainScreenState extends State<MainScreen> {
               icon: Icon(
                 Feather.home,
               ),
-              title: Text(
-                'Home',
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Feather.map,
               ),
+              label: 'Book',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.compass,
               ),
-              title: Text(
-                'Explore',
-              ),
+              label: 'Explore',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.settings,
               ),
-              title: Text(
-                'Settings',
-              ),
+              label: 'Settings',
             ),
           ],
           onTap: navigationTapped,
