@@ -95,7 +95,7 @@ Widget customListTitle(BookNew bookNew, BuildContext context) {
                         .replaceAll(r'\n', '\n')
                         .replaceAll(r'\r', '')
                         .replaceAll(r'\"', '"')
-                    : bookNew.content),
+                    : bookNew.content, style: TextStyle(fontSize: 14.0),),
               ],
             ),
           ),

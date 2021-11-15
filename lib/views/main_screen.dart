@@ -42,25 +42,25 @@ class _MainScreenState extends State<MainScreen> {
               icon: Icon(
                 Feather.home,
               ),
-              label: 'Home',
+              label: 'Trang chủ',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.map,
               ),
-              label: 'Book',
+              label: 'Sách',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.compass,
               ),
-              label: 'Explore',
+              label: 'Tin tức',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Feather.settings,
               ),
-              label: 'Settings',
+              label: 'Cài đặt',
             ),
           ],
           onTap: navigationTapped,

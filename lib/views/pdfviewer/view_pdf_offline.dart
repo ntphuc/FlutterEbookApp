@@ -25,7 +25,7 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
   }
 
   Future<String> _listOfFiles() async {
-    path = (await ExtStorage.getExternalStorageDirectory()) + "/Download/";
+    path = (await ExtStorage.getExternalStorageDirectory()) + "/Sách CGN/";
     print('MARKET_TEA check path: ' + path);
     setState(() {
       file = Directory("$path").listSync();

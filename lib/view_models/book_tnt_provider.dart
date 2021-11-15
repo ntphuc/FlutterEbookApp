@@ -70,7 +70,7 @@ class BookNewProvider extends ChangeNotifier {
     if (downloads.isNotEmpty) {
       // check if book has been deleted
       String path = downloads[0]['path'];
-      print(path);
+      print("CHECK DOWNLOAD IS: " + path);
       if (await File(path).exists()) {
         setDownloaded(true);
       } else {
