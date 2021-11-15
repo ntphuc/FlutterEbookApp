@@ -9,6 +9,7 @@ import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/view_models/book_tnt_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_offline.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class TntBookDetail extends StatefulWidget {
@@ -169,16 +170,11 @@ class _TntBookDetailState extends State<TntBookDetail> {
                                     ),
                                     //_buildDownloadPDF(context, widget.bookNew),
                                     ElevatedButton(
-                                      onPressed: () async {
-                                        String path = await ExtStorage
-                                            .getExternalStoragePublicDirectory(
-                                                ExtStorage.DIRECTORY_DOWNLOADS);
-                                        String fullPath =
-                                            '$path/${books.name}.pdf';
-                                        api.downloadBook(
-                                            api.dio, books.pdf, fullPath);
-                                        print('Link save book:--- ' + fullPath);
-                                      },
+                                      onPressed: () => BookNewProvider().downloadFile(
+                                        context,
+                                        books.pdf,
+                                        books.name,
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
