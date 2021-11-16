@@ -6,6 +6,7 @@ import 'package:flutter_ebook_app/services/api.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/router.dart';
 import 'package:flutter_ebook_app/util/show_toast.dart';
+import 'package:flutter_ebook_app/view_models/book_tnt_provider.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_book.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/view_pdf_offline.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -150,19 +151,17 @@ class _BookDetailState extends State<BookDetail> {
                           ),
                           // _buildDownloadPDF(context, widget.bookNew),
                           ElevatedButton(
-                            onPressed: () async {
-                              String path = await ExtStorage
-                                  .getExternalStoragePublicDirectory(
-                                      ExtStorage.DIRECTORY_DOWNLOADS);
-                              String fullPath =
-                                  '$path/${widget.bookNew.name}.pdf';
-                              api.downloadBook(
-                                  api.dio, widget.bookNew.pdf, fullPath);
-                              print('Link save book:--- ' + fullPath);
-                            },
+                            onPressed: () => BookNewProvider().downloadFile(
+                              context,
+                              widget.bookNew.pdf,
+                              widget.bookNew.name,
+                            ),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Text('${Constants.downloadBook}')],
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                Text('${Constants.downloadBook}')
+                              ],
                             ),
                           )
                         ],

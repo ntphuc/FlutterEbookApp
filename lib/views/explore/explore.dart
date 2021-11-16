@@ -25,11 +25,11 @@ class _ExploreState extends State<Explore> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              'Explore',
+              'Tin tức',
             ),
           ),
           body: Center(
-            child: Text('Explore'),
+            child: Text('Tin tức sẽ được cập nhật sớm', style: TextStyle(fontSize: 20.0),),
           ),
         );
       },

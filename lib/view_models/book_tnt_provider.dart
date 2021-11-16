@@ -10,6 +10,7 @@ import 'package:flutter_ebook_app/models/book_new.dart';
 import 'package:flutter_ebook_app/services/book_tnt_new_api.dart';
 import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/util/enum/api_request_status.dart';
+import 'package:flutter_ebook_app/util/show_toast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -24,10 +25,10 @@ class BookNewProvider extends ChangeNotifier {
   bool loading = true;
   bool downloaded = false;
 
-  BookNewProvider({int bookId, BuildContext context, String url, String filename}) {
+  BookNewProvider(
+      {int bookId, BuildContext context, String url, String filename}) {
     _fetchBookNew();
     if (bookId != null) _fetchBookTntDetail(bookId);
-    startDownload(context, url, filename);
   }
 
   APIRequestStatus get apiRequestStatus => _apiRequestStatus;
@@ -123,38 +124,23 @@ class BookNewProvider extends ChangeNotifier {
     String path = Platform.isIOS
         ? appDocDir.path + '/$filename.pdf'
         : appDocDir.path.split('Android')[0] +
-        '${Constants.appName}/$filename.pdf';
+            '${Constants.appName}/$filename.pdf';
     print('Link URL PDF: ----- ' + path);
     File file = File(path);
     if (!await file.exists()) {
       await file.create();
-    } else {
-      await file.delete();
-      await file.create();
-    }
 
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => DownloadAlert(
-        url: url,
-        path: path,
-      ),
-    ).then((v) {
-      // When the download finishes, we then add the book
-      // to our local database
-      if (v != null) {
-        addDownload(
-          {
-            'id': bookDetail.id.toString(),
-            'path': path,
-            'image': bookDetail.cover,
-            'size': v,
-            'name': bookDetail.name,
-          },
-        );
-      }
-    });
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => DownloadAlert(
+          url: url,
+          path: path,
+        ),
+      );
+    } else {
+      ShowToast.showFileExists();
+    }
   }
 
   void setDownloaded(value) {
