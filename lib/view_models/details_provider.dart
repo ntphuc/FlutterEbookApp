@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_app/components/download_alert.dart';
@@ -110,15 +111,20 @@ class DetailsProvider extends ChangeNotifier {
     Directory appDocDir = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationDocumentsDirectory();
+    final androidDir = await ExtStorage.getExternalStoragePublicDirectory(ExtStorage.DIRECTORY_DOWNLOADS);
+    var androidFileName = filename;
     if (Platform.isAndroid) {
-      Directory(appDocDir.path.split('Android')[0] + '${Constants.appName}')
+      // Directory(appDocDir.path.split('Android')[0] + '${Constants.appName}')
+      Directory(androidDir + "/${Constants.appName}")
           .createSync();
+      androidFileName = filename.replaceAll(':', '_');
     }
 
     String path = Platform.isIOS
         ? appDocDir.path + '/$filename.epub'
-        : appDocDir.path.split('Android')[0] +
-            '${Constants.appName}/$filename.epub';
+        // : appDocDir.path.split('Android')[0] +
+        //     '${Constants.appName}/$filename.epub';
+        : androidDir + '/${Constants.appName}/$androidFileName.epub';
     print('Link url path file book: ----- ' + path);
     File file = File(path);
     if (!await file.exists()) {
