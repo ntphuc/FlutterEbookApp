@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ebook_app/util/consts.dart';
 import 'package:flutter_ebook_app/views/pdfviewer/show_pdf_off.dart';
 
 class ViewPdfOffline extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ViewPdfOfflineState extends State<ViewPdfOffline> {
   }
 
   Future<String> _listOfFiles() async {
-    path = (await ExtStorage.getExternalStorageDirectory()) + "/Download/";
+    path = (await ExtStorage.getExternalStorageDirectory()) + "/Download/${Constants.appName}";
     print('MARKET_TEA check path: ' + path);
     setState(() {
       file = Directory("$path").listSync();

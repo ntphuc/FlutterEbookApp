@@ -115,16 +115,16 @@ class DetailsProvider extends ChangeNotifier {
     var androidFileName = filename;
     if (Platform.isAndroid) {
       // Directory(appDocDir.path.split('Android')[0] + '${Constants.appName}')
-      Directory(androidDir)
+      Directory(androidDir + '/${Constants.appName}')
           .createSync();
-      androidFileName = filename.replaceAll(':', '_');
+      androidFileName = filename.replaceAll(':', '');
     }
 
     String path = Platform.isIOS
         ? appDocDir.path + '/$filename.epub'
         // : appDocDir.path.split('Android')[0] +
         //     '${Constants.appName}/$filename.epub';
-        : androidDir + '/$androidFileName.epub';
+        : androidDir + '/${Constants.appName}/$androidFileName.epub';
     print('Link url path file book: ----- ' + path);
     File file = File(path);
     if (!await file.exists()) {
