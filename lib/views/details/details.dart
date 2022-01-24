@@ -295,7 +295,8 @@ class _DetailsState extends State<Details> {
       return ElevatedButton(
         onPressed: () => provider.downloadFile(
           context,
-          widget.entry.link[3].href,
+          //widget.entry.link[3].href,
+          'https://firebasestorage.googleapis.com/v0/b/streammusicplayer-114e4.appspot.com/o/01-GIOI%20BON%20TY%20KHEO%20CUA%20LUAT%20TU%20PHAN%20-%20HC.epub?alt=media&token=1d3a8c2d-c749-4217-b011-72c634681f7c',
           widget.entry.title.t.replaceAll(' ', '_').replaceAll(r"\'", "'"),
         ),
         child: Row(
