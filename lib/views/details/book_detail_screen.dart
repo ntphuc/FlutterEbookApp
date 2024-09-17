@@ -153,7 +153,7 @@ class _BookDetailState extends State<BookDetail> {
                             onPressed: () async {
                               String path = await ExtStorage
                                   .getExternalStoragePublicDirectory(
-                                      ExtStorage.DIRECTORY_DOWNLOADS);
+                                      ExtStorage.DIRECTORY_DOWNLOADS + '/${Constants.appName}');
                               String fullPath =
                                   '$path/${widget.bookNew.name}.pdf';
                               api.downloadBook(
@@ -201,7 +201,7 @@ _buildDownloadPDF(BuildContext context, BookNew bookNew) {
     return ElevatedButton(
       onPressed: () async {
         String path = await ExtStorage.getExternalStoragePublicDirectory(
-            ExtStorage.DIRECTORY_DOWNLOADS);
+            ExtStorage.DIRECTORY_DOWNLOADS + '/${Constants.appName}');
         String fullPath = '$path/${bookNew.name}.pdf';
         api.downloadBook(api.dio, bookNew.pdf, fullPath);
         print('Link save book:--- ' + fullPath);
